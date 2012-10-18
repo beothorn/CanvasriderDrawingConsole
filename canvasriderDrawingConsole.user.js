@@ -153,7 +153,15 @@ document.getElementById('console').value =
 '    curveRightDown(edgeX+2000,edgeY-100,1000,20);\n'+
 '    curveDownLeft(edgeX,edgeY,1000,20);\n'+
 '    curveLeftUp(edgeX,edgeY,1000,20);\n'+
-'    curveUpRight(edgeX,edgeY,800,20);\n';
+'    curveUpRight(edgeX,edgeY,800,20);\n'+
+'//Using the canvas buffer\n'+
+'    clearBufferCanvas();\n'+
+'    bufferCanvasContext.fillStyle    = "#000000";\n'+
+'    bufferCanvasContext.font         = "50px Arial";\n'+
+'    bufferCanvasContext.textBaseline = "top";\n'+
+'    bufferCanvasContext.fillText("available on github", 0, 0);\n'+
+'    dumpBufferCanvas(80,100);'
+;
 
 
 var bufferCanvasContext = bufferCanvas.getContext('2d');
