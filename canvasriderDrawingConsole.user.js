@@ -62,10 +62,10 @@ div.appendChild(input);
 
 function repeattimeout() {
     document.getElementById('coords').value = 'x: '+AF.x+' y: '+AF.y;
-    setTimeout('repeattimeout()', 100);
+    setTimeout(repeattimeout, 100);
 }
 
-setTimeout('repeattimeout()', 100);
+setTimeout(repeattimeout, 100);
 
 document.getElementById('console').value = 'var x1 = 140; var y1 = -50; var x2 = 350; var y2 = -50; addLine(x1,y1,x2,y2); curveUp(40,50,100,1); curveUp(350,-50,1000,20); curveDown(1350,-50,1000,20); curveUp(2350,950,1000,20);';
 
