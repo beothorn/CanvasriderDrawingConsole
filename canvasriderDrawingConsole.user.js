@@ -24,8 +24,8 @@ function addLine(x1,y1,x2,y2){
     }
 }
 
-function curve(x,y,size){
-    for(var i = 0; i < size;i++){
+function curve(x,y,size,increment){
+    for(var i = 0; i < size;i+=increment){
         addLine(x+i,y,x+size,y-i);
     }
 }
@@ -37,7 +37,7 @@ input.setAttribute('id','console');
 input.setAttribute('rows','5');
 div.appendChild(input);
 
-document.getElementById('console').value = 'var x1 = 140; var y1 = -50; var x2 = 350; var y2 = -50; addLine(x1,y1,x2,y2); curve(40,50,100); ';
+document.getElementById('console').value = 'var x1 = 140; var y1 = -50; var x2 = 350; var y2 = -50; addLine(x1,y1,x2,y2); curve(40,50,100,1); curve(40,50,100); curve(350,-50,1000,10); ';
 
 var buttonnode= document.createElement('input');
 buttonnode.setAttribute('type','button');
