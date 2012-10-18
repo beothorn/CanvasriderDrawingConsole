@@ -81,7 +81,19 @@ function getCoords() {
 
 setTimeout(getCoords, 100);
 
-document.getElementById('console').value = 'var x1 = 140; var y1 = -50; var x2 = 350; var y2 = -50; addLine(x1,y1,x2,y2); curveUp(40,50,100,1); curveUp(350,-50,1000,20); curveDown(1350,-50,1000,20); curveUp(2350,950,1000,20);writeText("https://github.com/beothorn/CanvasriderDrawingConsole",-40,50);';
+document.getElementById('console').value = 
+'//Paste javascript here\n'+
+'//Example usage:\n'+
+'    var x1 = 140;\n'+
+'    var y1 = -50;\n'+
+'    var x2 = 350;\n'+
+'    var y2 = -50;\n'+
+'    addLine(x1,y1,x2,y2);\n'+
+'    curveUp(40,50,100,1);\n'+
+'    curveUp(350,-50,1000,20);\n'+
+'    curveDown(1350,-50,1000,20);\n'+
+'    curveUp(2350,950,1000,20);\n'+
+'    writeText("https://github.com/beothorn/CanvasriderDrawingConsole",-40,50);';
 
 
 var context = bufferCanvas.getContext('2d');
@@ -97,7 +109,6 @@ function writeTextOnBufferCanvas(text){
     context.textBaseline = 'top';
     context.fillText  (text, 0, 0);
 }
-
 
 function dumpBufferCanvas(crX,crY){
     var canvasImgData = context.getImageData(0, 0, bufferCanvas.width, bufferCanvas.height).data;
