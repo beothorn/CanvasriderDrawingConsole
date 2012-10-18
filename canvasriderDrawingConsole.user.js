@@ -10,6 +10,11 @@
 var edgeX=40;
 var edgeY=50;
 
+function resetEdge(){
+    edgeX=40;
+    edgeY=50;
+}
+
 function addLine(x1,y1,x2,y2){
     var P = new line(x1,y1,x2,y2);
     var I = CG(new J(P.AH.x, P.AH.y), new J(P.AK.x, P.AK.y), C.q);
@@ -39,16 +44,16 @@ function curveDownLeft(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
         addLine(x+i-size,y+size,x,y-i+size);
     }
-    edgeX=x+size;
-    edgeY=y-size;
+    edgeX=x-size;
+    edgeY=y+size;
 }
 
 function curveUpRight(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
-        addLine(x-i-size,y+size,x-size-size,y+i+size);
+        addLine(x,y-i,x+i,y-size);
     }
-    edgeX=x-size;
-    edgeY=y+size;
+    edgeX=x+size;
+    edgeY=y-size;
 }
 
 function curveUpLeft(x,y,size,increment){
@@ -77,10 +82,10 @@ function curveRightDown(x,y,size,increment){
 
 function curveLeftUp(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
-        addLine(x-i,y,x,y-i);
+        addLine(x+i-size,y,x-size,y-size+i);
     }
-    edgeX=x+size;
-    edgeY=y+size;
+    edgeX=x-size;
+    edgeY=y-size;
 }
 
 function curveLeftDown(x,y,size,increment){
@@ -130,6 +135,7 @@ setTimeout(getCoords, 100);
 document.getElementById('console').value = 
 '//Paste javascript here\n'+
 '//Example usage:\n'+
+'    resetEdge();\n'+
 '    writeText("CanvasriderDrawingConsole example track",-40,50);\n'+
 '    var x1 = edgeX;\n'+
 '    var y1 = edgeY;\n'+
@@ -147,7 +153,7 @@ document.getElementById('console').value =
 '    curveRightDown(edgeX+2000,edgeY-100,1000,20);\n'+
 '    curveDownLeft(edgeX,edgeY,1000,20);\n'+
 '    curveLeftUp(edgeX,edgeY,1000,20);\n'+
-'    curveUpRight(edgeX,edgeY,500,40);\n';
+'    curveUpRight(edgeX,edgeY,800,20);\n';
 
 
 var bufferCanvasContext = bufferCanvas.getContext('2d');
