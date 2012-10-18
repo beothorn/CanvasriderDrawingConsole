@@ -7,6 +7,9 @@
 // @namespace https://github.com/beothorn/CanvasriderDrawingConsole
 // ==/UserScript==
 
+var edgeX=40;
+var edgeY=50;
+
 function addLine(x1,y1,x2,y2){
     var P = new line(x1,y1,x2,y2);
     var I = CG(new J(P.AH.x, P.AH.y), new J(P.AK.x, P.AK.y), C.q);
@@ -24,28 +27,68 @@ function addLine(x1,y1,x2,y2){
     }
 }
 
-function curveDown(x,y,size,increment){
+function curveDownRight(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
         addLine(x+size-i,y+size,x,y+size-i);
     }
+    edgeX=x+size;
+    edgeY=y+size;
 }
 
-function curveUp(x,y,size,increment){
+function curveDownLeft(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
-        addLine(x+i,y,x+size,y-i);
+        addLine(x+i-size,y+size,x,y-i+size);
     }
+    edgeX=x+size;
+    edgeY=y-size;
 }
 
 function curveUpRight(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
-        addLine(x+i,y,x+size,y+i);
+        addLine(x-i-size,y+size,x-size-size,y+i+size);
     }
+    edgeX=x-size;
+    edgeY=y+size;
 }
 
 function curveUpLeft(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
+        addLine(x,y-i,x-i,y-size);
+    }
+    edgeX=x-size;
+    edgeY=y-size;
+}
+
+function curveRightUp(x,y,size,increment){
+    for(var i = 0; i <= size;i+=increment){
+        addLine(x+i,y,x+size,y-i);
+    }
+    edgeX=x+size;
+    edgeY=y-size;
+}
+
+function curveRightDown(x,y,size,increment){
+    for(var i = 0; i <= size;i+=increment){
+        addLine(x+i,y,x+size,y+i);
+    }
+    edgeX=x+size;
+    edgeY=y+size;
+}
+
+function curveLeftUp(x,y,size,increment){
+    for(var i = 0; i <= size;i+=increment){
+        addLine(x-i,y,x,y-i);
+    }
+    edgeX=x+size;
+    edgeY=y+size;
+}
+
+function curveLeftDown(x,y,size,increment){
+    for(var i = 0; i <= size;i+=increment){
         addLine(x-i,y,x-size,y+i);
     }
+    edgeX=x-size;
+    edgeY=y+size;
 }
 
 var div = document.getElementById("track_menu");
@@ -69,8 +112,11 @@ buttonnode.onclick= function() { eval(document.getElementById('console').value);
 div.insertBefore(buttonnode,divFirstElement);
 
 var bufferCanvas = document.createElement("canvas");
-bufferCanvas.setAttribute('height','400px');
-bufferCanvas.setAttribute('width','700px');
+function setBufferSize(width,height){
+    bufferCanvas.setAttribute('width',width+'px');
+    bufferCanvas.setAttribute('height',height+'px');
+}
+setBufferSize(700,400);
 bufferCanvas.setAttribute('id','bufferCanvas');
 div.insertBefore(bufferCanvas,divFirstElement);
 
@@ -84,34 +130,42 @@ setTimeout(getCoords, 100);
 document.getElementById('console').value = 
 '//Paste javascript here\n'+
 '//Example usage:\n'+
-'    var x1 = 140;\n'+
-'    var y1 = -50;\n'+
-'    var x2 = 350;\n'+
-'    var y2 = -50;\n'+
+'    writeText("CanvasriderDrawingConsole example track",-40,50);\n'+
+'    var x1 = edgeX;\n'+
+'    var y1 = edgeY;\n'+
+'    var x2 = 500;\n'+
+'    var y2 = 50;\n'+
 '    addLine(x1,y1,x2,y2);\n'+
-'    curveUp(40,50,100,1);\n'+
-'    curveUp(350,-50,1000,20);\n'+
-'    curveDown(1350,-50,1000,20);\n'+
-'    curveUp(2350,950,1000,20);\n'+
-'    writeText("https://github.com/beothorn/CanvasriderDrawingConsole",-40,50);';
+'    var curveStartX = edgeX;\n'+
+'    var curveStartY = edgeY;\n'+
+'    var curveSize = 1000;\n'+
+'    var curveIncrement = 20;\n'+
+'    curveRightUp(curveStartX,curveStartY,curveSize,curveIncrement);\n'+
+'    curveUpLeft(edgeX,edgeY,1000,20);\n'+
+'    curveLeftDown(edgeX,edgeY,1000,20);\n'+
+'    curveDownRight(edgeX,edgeY,2000,40);\n'+
+'    curveRightDown(edgeX+2000,edgeY-100,1000,20);\n'+
+'    curveDownLeft(edgeX,edgeY,1000,20);\n'+
+'    curveLeftUp(edgeX,edgeY,1000,20);\n'+
+'    curveUpRight(edgeX,edgeY,500,40);\n';
 
 
-var context = bufferCanvas.getContext('2d');
+var bufferCanvasContext = bufferCanvas.getContext('2d');
 
 function clearBufferCanvas(){
-    context.fillStyle   = '#ffffff';
-    context.fillRect  (0,   0, bufferCanvas.width, bufferCanvas.height);
+    bufferCanvasContext.fillStyle   = '#ffffff';
+    bufferCanvasContext.fillRect  (0,   0, bufferCanvas.width, bufferCanvas.height);
 }
 
 function writeTextOnBufferCanvas(text){
-    context.fillStyle    = '#000000';
-    context.font         = 'italic 50px sans-serif';
-    context.textBaseline = 'top';
-    context.fillText  (text, 0, 0);
+    bufferCanvasContext.fillStyle    = '#000000';
+    bufferCanvasContext.font         = '30px Arial';
+    bufferCanvasContext.textBaseline = 'top';
+    bufferCanvasContext.fillText(text, 0, 0);
 }
 
 function dumpBufferCanvas(crX,crY){
-    var canvasImgData = context.getImageData(0, 0, bufferCanvas.width, bufferCanvas.height).data;
+    var canvasImgData = bufferCanvasContext.getImageData(0, 0, bufferCanvas.width, bufferCanvas.height).data;
     var pixels = bufferCanvas.width*bufferCanvas.height;
     var pixelCount=0;
     var isDrawingLine = false;
@@ -135,8 +189,7 @@ function dumpBufferCanvas(crX,crY){
                 prevX=x;
                 prevY=y;
             }
-        }
-        if(red == 255){
+        }else{
             if(isDrawingLine){
                 addLine(prevX+crX,prevY+crY,x+crX,y+crY);
             }
