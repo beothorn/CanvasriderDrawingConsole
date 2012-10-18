@@ -25,17 +25,28 @@ function addLine(x1,y1,x2,y2){
 }
 
 function curveDown(x,y,size,increment){
-    for(var i = 0; i < size;i+=increment){
-        addLine(x+size-i,y,x,y-i);
+    for(var i = 0; i <= size;i+=increment){
+        addLine(x+size-i,y+size,x,y+size-i);
     }
 }
 
 function curveUp(x,y,size,increment){
-    for(var i = 0; i < size;i+=increment){
+    for(var i = 0; i <= size;i+=increment){
         addLine(x+i,y,x+size,y-i);
     }
 }
 
+function curveUpRight(x,y,size,increment){
+    for(var i = 0; i <= size;i+=increment){
+        addLine(x+i,y,x+size,y+i);
+    }
+}
+
+function curveUpLeft(x,y,size,increment){
+    for(var i = 0; i <= size;i+=increment){
+        addLine(x-i,y,x-size,y+i);
+    }
+}
 
 var div = document.getElementById("track_menu");
 var input = document.createElement("textarea");
