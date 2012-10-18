@@ -3,7 +3,8 @@
 // @description Canvasrider drawing console
 // @version 0.1rc7
 // @author Beothorn
-// @namespace http://canvasrider.com/draw
+// @include http://canvasrider.com/draw 
+// @namespace https://github.com/beothorn/CanvasriderDrawingConsole
 // ==/UserScript==
 
 function addLine(x1,y1,x2,y2){
