@@ -1,10 +1,10 @@
-/ ==User==
-/ / @name Canvasrider drawing console
-// @namespace      https://github.com/beothorn/CanvasriderDrawingConsole
-// @include        http://canvasrider.com/draw
-// @match          http://canvasrider.com/draw
-// @version        0.1rc7
-// ==/User==
+// ==UserScript==
+// @name Canvasrider drawing console
+// @description Canvasrider drawing console
+// @version 0.1rc7
+// @author Beothorn
+// @namespace http://canvasrider.com/draw
+// ==/UserScript==
 
 function addLine(x1,y1,x2,y2){
     var P = new line(x1,y1,x2,y2);
