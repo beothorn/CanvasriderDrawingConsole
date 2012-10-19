@@ -15,7 +15,7 @@ function resetEdge(){
     edgeY=50;
 }
 
-function addLine(x1,y1,x2,y2){
+function extractedAddLine(x1,y1,x2,y2){
     var P = new line(x1,y1,x2,y2);
     var I = CG(new J(P.AH.x, P.AH.y), new J(P.AK.x, P.AK.y), C.q);
     for (var T = 0; T < I.length; T++) {
@@ -30,6 +30,12 @@ function addLine(x1,y1,x2,y2){
        C.I[x][y].AG.push(P);
        delete C.Ax[x + "_" + y];
     }
+}
+
+function addLine(x1,y1,x2,y2){
+    extractedAddLine(x1,y1,x2,y2);
+    edgeX=x2;
+    edgeY=y2;
 }
 
 function curveDownRight(x,y,size,increment){
@@ -173,7 +179,7 @@ function clearBufferCanvas(){
 
 function writeTextOnBufferCanvas(text){
     bufferCanvasContext.fillStyle    = '#000000';
-    bufferCanvasContext.font         = '30px Arial';
+    bufferCanvasContext.font         = '50px Arial';
     bufferCanvasContext.textBaseline = 'top';
     bufferCanvasContext.fillText(text, 0, 0);
 }
