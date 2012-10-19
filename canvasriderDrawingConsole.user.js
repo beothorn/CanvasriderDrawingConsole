@@ -178,7 +178,72 @@ function writeTextOnBufferCanvas(text){
     bufferCanvasContext.fillText(text, 0, 0);
 }
 
-function dumpBufferCanvas(crX,crY){
+
+/*
+//line by line
+//3x4 = 12
+for(var i = 0 ; i < 12; i ++){
+    var x = i%3;
+    var y = Math.floor(i/3);
+    console.log(i+' : '+x+' , '+y);
+}
+
+//columns by column
+//3x4 = 12
+for(var i = 0 ; i < 12; i ++){
+
+    var j = ((i%4)*3) +  Math.floor(i/4);
+
+    var x = j%3;
+    var y = Math.floor(j/3);
+    console.log(j+' : '+x+' , '+y);
+}
+
+*/
+
+function dumpBufferCanvasVerticalLines(crX,crY){
+    var canvasImgData = bufferCanvasContext.getImageData(0, 0, bufferCanvas.width, bufferCanvas.height).data;
+    var pixels = bufferCanvas.width*bufferCanvas.height;
+    var i=0;
+    var isDrawingLine = false;
+    var prevX=0;
+    var prevY=0;
+    while(i++<=pixels){
+	var pixelCount = ((i%bufferCanvas.height)*bufferCanvas.width) +  Math.floor(i/bufferCanvas.height);
+        var red =  canvasImgData[4*pixelCount+0];
+        //var green = canvasImgData[4*pixelCount+1];
+        //var blue =  canvasImgData[4*pixelCount+2];
+        //var alpha =  canvasImgData[4*pixelCount+3];
+        var x = pixelCount % bufferCanvas.width;
+        var y = Math.floor(pixelCount / bufferCanvas.width);
+        if(y == 0){
+            isDrawingLine = false;
+            prevX=x;
+            prevY=0;
+        }
+        if(red == 0){
+            if(!isDrawingLine){
+                isDrawingLine=true;
+                prevX=x;
+                prevY=y;
+            }
+        }else{
+            if(isDrawingLine){
+                addLine(prevX+crX,prevY+crY,x+crX,y+crY);
+            }
+            isDrawingLine=false;
+        }
+
+        var nextPixelCount = ((i+1%bufferCanvas.height)*bufferCanvas.width) +  Math.floor(i+1/bufferCanvas.height);
+        if(Math.floor( nextPixelCount % bufferCanvas.width)  > x){
+            if(isDrawingLine){
+                addLine(prevX+crX,prevY+crY,x+crX,y+crY);
+            }
+        }
+    }
+}
+
+function dumpBufferCanvasHorizontalLines(crX,crY){
     var canvasImgData = bufferCanvasContext.getImageData(0, 0, bufferCanvas.width, bufferCanvas.height).data;
     var pixels = bufferCanvas.width*bufferCanvas.height;
     var pixelCount=0;
@@ -191,7 +256,7 @@ function dumpBufferCanvas(crX,crY){
         //var blue =  canvasImgData[4*pixelCount+2];
         //var alpha =  canvasImgData[4*pixelCount+3];
         var x = pixelCount % bufferCanvas.width;
-        var y = Math.floor(pixelCount / bufferCanvas.height);
+        var y = Math.floor(pixelCount / bufferCanvas.width);
         if(x == 0){
             isDrawingLine = false;
             prevX=x;
@@ -210,7 +275,7 @@ function dumpBufferCanvas(crX,crY){
             isDrawingLine=false;
         }
 
-        if(Math.floor( (pixelCount+1) / bufferCanvas.height)  > y){
+        if(Math.floor( (pixelCount+1) / bufferCanvas.width)  > y){
             if(isDrawingLine){
                 addLine(prevX+crX,prevY+crY,x+crX,y+crY);
             }
@@ -218,9 +283,14 @@ function dumpBufferCanvas(crX,crY){
     }
 }
 
+function dumpBufferCanvas(crX,crY){
+    dumpBufferCanvasHorizontalLines(crX,crY);
+    dumpBufferCanvasVerticalLines(crX,crY);
+}
+
 function writeText(text, x, y){
     clearBufferCanvas();
     writeTextOnBufferCanvas(text);
-    dumpBufferCanvas(x,y);
+    dumpBufferCanvasHorizontalLines(x,y);
 }
 
