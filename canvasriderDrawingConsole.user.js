@@ -152,7 +152,15 @@ document.getElementById('console').value =
 '    for(var i=0; i<250;i++){\n'+
 '        addLine(edgeX,edgeY,edgeX+10,sineWaveCenter+(Math.sin(i/frequency)*amplitude));\n'+
 '    }\n'+
-
+'    writeText("curveRightUp",3000,50);\n'+
+'    curveRightUp(edgeX,edgeY,500,20);\n'+
+'    writeText("curveDownRight",3950,460);\n'+
+'    curveDownRight(edgeX,edgeY,2000,40);\n'+
+'    addLine(edgeX,edgeY,edgeX+1000,edgeY);\n'+
+'    curveRightDown(edgeX+1000,edgeY-100,1000,20);\n'+
+'    curveDownLeft(edgeX,edgeY,1000,20);\n'+
+'    curveLeftUp(edgeX,edgeY,1000,20);\n'+
+'    curveUpRight(edgeX,edgeY,800,20);\n'+
 '';
 var oldCode =
 '//Paste javascript here\n'+
