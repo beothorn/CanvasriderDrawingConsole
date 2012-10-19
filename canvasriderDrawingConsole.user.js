@@ -142,6 +142,22 @@ document.getElementById('console').value =
 '//Paste javascript here\n'+
 '//Example usage:\n'+
 '    resetEdge();\n'+
+'    writeText("CanvasriderDrawingConsole",53,-131);\n'+
+'    writeText("Example Track",edgeX,edgeY);\n'+
+'    addLine(381,edgeY,500,edgeY);\n'+
+'    writeText("sine wave",871,30);\n'+
+'    var sineWaveCenter = edgeY;\n'+
+'    var frequency = 10;\n'+
+'    var amplitude = 80;\n'+
+'    for(var i=0; i<250;i++){\n'+
+'        addLine(edgeX,edgeY,edgeX+10,sineWaveCenter+(Math.sin(i/frequency)*amplitude));\n'+
+'    }\n'+
+
+'';
+var oldCode =
+'//Paste javascript here\n'+
+'//Example usage:\n'+
+'    resetEdge();\n'+
 '    writeText("CanvasriderDrawingConsole example track",-40,50);\n'+
 '    var x1 = edgeX;\n'+
 '    var y1 = edgeY;\n'+
@@ -165,7 +181,17 @@ document.getElementById('console').value =
 '    bufferCanvasContext.fillStyle    = "#000000";\n'+
 '    bufferCanvasContext.font         = "50px Arial";\n'+
 '    bufferCanvasContext.textBaseline = "top";\n'+
+'    bufferCanvasContext.rotate(20*Math.PI/180);\n'+
 '    bufferCanvasContext.fillText("available on github", 0, 0);\n'+
+'    bufferCanvasContext.beginPath();\n'+
+'    bufferCanvasContext.arc(75,75,50,0,Math.PI*2,true); // Outer circle\n'+
+'    bufferCanvasContext.moveTo(110,75);\n'+
+'    bufferCanvasContext.arc(75,75,35,0,Math.PI,false);   // Mouth (clockwise)\n'+
+'    bufferCanvasContext.moveTo(65,65);\n'+
+'    bufferCanvasContext.arc(60,65,5,0,Math.PI*2,true);  // Left eye\n'+
+'    bufferCanvasContext.moveTo(95,65);\n'+
+'    bufferCanvasContext.arc(90,65,5,0,Math.PI*2,true);  // Right eye\n'+
+'    bufferCanvasContext.stroke();\n'+
 '    dumpBufferCanvas(80,100);'
 ;
 
@@ -227,7 +253,7 @@ function dumpBufferCanvasVerticalLines(crX,crY){
             prevX=x;
             prevY=0;
         }
-        if(red == 0){
+        if(red < 255){
             if(!isDrawingLine){
                 isDrawingLine=true;
                 prevX=x;
@@ -235,7 +261,7 @@ function dumpBufferCanvasVerticalLines(crX,crY){
             }
         }else{
             if(isDrawingLine){
-                addLine(prevX+crX,prevY+crY,x+crX,y+crY);
+                extractedAddLine(prevX+crX,prevY+crY,x+crX,y+crY);
             }
             isDrawingLine=false;
         }
@@ -243,7 +269,7 @@ function dumpBufferCanvasVerticalLines(crX,crY){
         var nextPixelCount = ((i+1%bufferCanvas.height)*bufferCanvas.width) +  Math.floor(i+1/bufferCanvas.height);
         if(Math.floor( nextPixelCount % bufferCanvas.width)  > x){
             if(isDrawingLine){
-                addLine(prevX+crX,prevY+crY,x+crX,y+crY);
+                extractedAddLine(prevX+crX,prevY+crY,x+crX,y+crY);
             }
         }
     }
@@ -276,14 +302,14 @@ function dumpBufferCanvasHorizontalLines(crX,crY){
             }
         }else{
             if(isDrawingLine){
-                addLine(prevX+crX,prevY+crY,x+crX,y+crY);
+                extractedAddLine(prevX+crX,prevY+crY,x+crX,y+crY);
             }
             isDrawingLine=false;
         }
 
         if(Math.floor( (pixelCount+1) / bufferCanvas.width)  > y){
             if(isDrawingLine){
-                addLine(prevX+crX,prevY+crY,x+crX,y+crY);
+                extractedAddLine(prevX+crX,prevY+crY,x+crX,y+crY);
             }
         }
     }
