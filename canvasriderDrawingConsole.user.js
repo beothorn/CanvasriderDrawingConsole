@@ -170,21 +170,21 @@ document.getElementById('console').value =
 '    addLine(edgeX,edgeY,edgeX+3000,edgeY);\n'+
 '    writeText("dumpBufferCanvas",6512,3823);\n'+
 '    clearBufferCanvas();\n'+
-'    bufferCanvasContext.beginPath();\n'+
-'    bufferCanvasContext.arc(75,75,50,0,Math.PI*2,true); // Outer circle\n'+
-'    bufferCanvasContext.moveTo(110,75);\n'+
-'    bufferCanvasContext.arc(75,75,35,0,Math.PI,false);   // Mouth (clockwise)\n'+
-'    bufferCanvasContext.moveTo(65,65);\n'+
-'    bufferCanvasContext.arc(60,65,5,0,Math.PI*2,true);  // Left eye\n'+
-'    bufferCanvasContext.moveTo(95,65);\n'+
-'    bufferCanvasContext.arc(90,65,5,0,Math.PI*2,true);  // Right eye\n'+
-'    bufferCanvasContext.stroke();\n'+
+'    getContext().beginPath();\n'+
+'    getContext().arc(75,75,50,0,Math.PI*2,true); // Outer circle\n'+
+'    getContext().moveTo(110,75);\n'+
+'    getContext().arc(75,75,35,0,Math.PI,false);   // Mouth (clockwise)\n'+
+'    getContext().moveTo(65,65);\n'+
+'    getContext().arc(60,65,5,0,Math.PI*2,true);  // Left eye\n'+
+'    getContext().moveTo(95,65);\n'+
+'    getContext().arc(90,65,5,0,Math.PI*2,true);  // Right eye\n'+
+'    getContext().stroke();\n'+
 '    dumpBufferCanvas(7082,3838);\n'+
 '    writeText("Source code on github",7386,3823);\n'+
 '    clearBufferCanvas();\n'+
-'    bufferCanvasContext.strokeStyle = "#000000";\n'+
-'    bufferCanvasContext.font         = "80px Arial";\n'+
-'    bufferCanvasContext.strokeText("Thumbs up!", 0, 0);\n'+
+'    getContext().strokeStyle = "#000000";\n'+
+'    getContext().font         = "80px Arial";\n'+
+'    getContext().strokeText("Thumbs up!", 0, 0);\n'+
 '    dumpBufferCanvas(10805,3581);\n'+
 '    curveRightUp(edgeX,edgeY,500,20);\n'+
 '    curveDownRight(edgeX,edgeY,500,20);\n'+
@@ -193,59 +193,43 @@ document.getElementById('console').value =
 '    writeText("Here",9325,6359);\n'+
 '';
 
-
-var bufferCanvasContext = bufferCanvas.getContext('2d');
+function getContext(){
+    return document.getElementById('bufferCanvas').getContext('2d');
+}
 
 function clearBufferCanvas(){
-    bufferCanvasContext.fillStyle   = '#ffffff';
-    bufferCanvasContext.fillRect  (0,   0, bufferCanvas.width, bufferCanvas.height);
+    var bufferWidth = parseInt(bufferCanvas.getAttribute('width'));
+    var bufferHeight = parseInt(bufferCanvas.getAttribute('height'));
+    var ctx =  getContext();
+    ctx.fillStyle   = '#ffffff';
+    ctx.fillRect  (0,   0, bufferWidth, bufferHeight);
 }
 
 function writeTextOnBufferCanvas(text){
-    bufferCanvasContext.fillStyle    = '#000000';
-    bufferCanvasContext.font         = '50px Arial';
-    bufferCanvasContext.textBaseline = 'top';
-    bufferCanvasContext.fillText(text, 0, 0);
+    var ctx =  getContext();
+    ctx.fillStyle    = '#000000';
+    ctx.font         = '50px Arial';
+    ctx.textBaseline = 'top';
+    ctx.fillText(text, 0, 0);
 }
-
-
-/*
-//line by line
-//3x4 = 12
-for(var i = 0 ; i < 12; i ++){
-    var x = i%3;
-    var y = Math.floor(i/3);
-    console.log(i+' : '+x+' , '+y);
-}
-
-//columns by column
-//3x4 = 12
-for(var i = 0 ; i < 12; i ++){
-
-    var j = ((i%4)*3) +  Math.floor(i/4);
-
-    var x = j%3;
-    var y = Math.floor(j/3);
-    console.log(j+' : '+x+' , '+y);
-}
-
-*/
 
 function dumpBufferCanvasVerticalLines(crX,crY){
-    var canvasImgData = bufferCanvasContext.getImageData(0, 0, bufferCanvas.width, bufferCanvas.height).data;
-    var pixels = bufferCanvas.width*bufferCanvas.height;
+    var bufferWidth = parseInt(bufferCanvas.getAttribute('width'));
+    var bufferHeight = parseInt(bufferCanvas.getAttribute('height'));
+    var canvasImgData = getContext().getImageData(0, 0, bufferWidth, bufferHeight).data;
+    var pixels = bufferWidth*bufferHeight;
     var i=0;
     var isDrawingLine = false;
     var prevX=0;
     var prevY=0;
     while(i++<=pixels){
-	var pixelCount = ((i%bufferCanvas.height)*bufferCanvas.width) +  Math.floor(i/bufferCanvas.height);
+	var pixelCount = ((i%bufferHeight)*bufferWidth) +  Math.floor(i/bufferHeight);
         var red =  canvasImgData[4*pixelCount+0];
         //var green = canvasImgData[4*pixelCount+1];
         //var blue =  canvasImgData[4*pixelCount+2];
         //var alpha =  canvasImgData[4*pixelCount+3];
-        var x = pixelCount % bufferCanvas.width;
-        var y = Math.floor(pixelCount / bufferCanvas.width);
+        var x = pixelCount % bufferWidth;
+        var y = Math.floor(pixelCount / bufferWidth);
         if(y == 0){
             isDrawingLine = false;
             prevX=x;
@@ -264,8 +248,8 @@ function dumpBufferCanvasVerticalLines(crX,crY){
             isDrawingLine=false;
         }
 
-        var nextPixelCount = ((i+1%bufferCanvas.height)*bufferCanvas.width) +  Math.floor(i+1/bufferCanvas.height);
-        if(Math.floor( nextPixelCount % bufferCanvas.width)  > x){
+        var nextPixelCount = ((i+1%bufferHeight)*bufferWidth) +  Math.floor(i+1/bufferHeight);
+        if(Math.floor( nextPixelCount % bufferWidth)  > x){
             if(isDrawingLine){
                 extractedAddLine(prevX+crX,prevY+crY,x+crX,y+crY);
             }
@@ -274,8 +258,10 @@ function dumpBufferCanvasVerticalLines(crX,crY){
 }
 
 function dumpBufferCanvasHorizontalLines(crX,crY){
-    var canvasImgData = bufferCanvasContext.getImageData(0, 0, bufferCanvas.width, bufferCanvas.height).data;
-    var pixels = bufferCanvas.width*bufferCanvas.height;
+    var bufferWidth = parseInt(bufferCanvas.getAttribute('width'));
+    var bufferHeight = parseInt(bufferCanvas.getAttribute('height'));
+    var canvasImgData = getContext().getImageData(0, 0, bufferWidth, bufferHeight).data;
+    var pixels = bufferWidth*bufferHeight;
     var pixelCount=0;
     var isDrawingLine = false;
     var prevX=0;
@@ -285,8 +271,8 @@ function dumpBufferCanvasHorizontalLines(crX,crY){
         //var green = canvasImgData[4*pixelCount+1];
         //var blue =  canvasImgData[4*pixelCount+2];
         //var alpha =  canvasImgData[4*pixelCount+3];
-        var x = pixelCount % bufferCanvas.width;
-        var y = Math.floor(pixelCount / bufferCanvas.width);
+        var x = pixelCount % bufferWidth;
+        var y = Math.floor(pixelCount / bufferWidth);
         if(x == 0){
             isDrawingLine = false;
             prevX=x;
@@ -305,7 +291,7 @@ function dumpBufferCanvasHorizontalLines(crX,crY){
             isDrawingLine=false;
         }
 
-        if(Math.floor( (pixelCount+1) / bufferCanvas.width)  > y){
+        if(Math.floor( (pixelCount+1) / bufferWidth)  > y){
             if(isDrawingLine){
                 extractedAddLine(prevX+crX,prevY+crY,x+crX,y+crY);
             }
@@ -314,6 +300,8 @@ function dumpBufferCanvasHorizontalLines(crX,crY){
 }
 
 function dumpBufferCanvas(crX,crY){
+console.log('dumpBufferCanvas');
+console.log(crX);
     dumpBufferCanvasHorizontalLines(crX,crY);
     dumpBufferCanvasVerticalLines(crX,crY);
 }
@@ -322,5 +310,31 @@ function writeText(text, x, y){
     clearBufferCanvas();
     writeTextOnBufferCanvas(text);
     dumpBufferCanvasHorizontalLines(x,y);
+}
+
+//----------------------------------------------
+
+var buttonnode= document.createElement('input');
+buttonnode.setAttribute('type','file');
+buttonnode.setAttribute('id','input');
+div.insertBefore(buttonnode,divFirstElement);
+
+window.onload = function() {
+    var input = document.getElementById('input');
+    input.addEventListener('change', handleFiles);
+}
+
+function handleFiles(e) {
+    var reader = new FileReader;
+    reader.onload = function(event) {
+        var img = new Image;
+        img.src = event.target.result;
+        img.onload = function() {
+            bufferCanvas.setAttribute('width',img.width);
+            bufferCanvas.setAttribute('height',img.height);
+            getContext().drawImage(img, 0,0);
+        }
+    }
+    reader.readAsDataURL(e.target.files[0]);
 }
 
