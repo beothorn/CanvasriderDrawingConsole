@@ -157,40 +157,19 @@ document.getElementById('console').value =
 '    writeText("curveDownRight",3950,460);\n'+
 '    curveDownRight(edgeX,edgeY,2000,40);\n'+
 '    addLine(edgeX,edgeY,edgeX+1000,edgeY);\n'+
+'    writeText("curveRightDown",7542,1361);\n'+
 '    curveRightDown(edgeX+1000,edgeY-100,1000,20);\n'+
+'    writeText("curveDownLeft",7807,3441);\n'+
 '    curveDownLeft(edgeX,edgeY,1000,20);\n'+
+'    writeText("curveLeftUp",6502,3441);\n'+
 '    curveLeftUp(edgeX,edgeY,1000,20);\n'+
+'    writeText("curveUpRight",6822,1926);\n'+
 '    curveUpRight(edgeX,edgeY,800,20);\n'+
-'';
-var oldCode =
-'//Paste javascript here\n'+
-'//Example usage:\n'+
-'    resetEdge();\n'+
-'    writeText("CanvasriderDrawingConsole example track",-40,50);\n'+
-'    var x1 = edgeX;\n'+
-'    var y1 = edgeY;\n'+
-'    var x2 = 500;\n'+
-'    var y2 = 50;\n'+
-'    addLine(x1,y1,x2,y2);\n'+
-'    var curveStartX = edgeX;\n'+
-'    var curveStartY = edgeY;\n'+
-'    var curveSize = 1000;\n'+
-'    var curveIncrement = 20;\n'+
-'    curveRightUp(curveStartX,curveStartY,curveSize,curveIncrement);\n'+
-'    curveUpLeft(edgeX,edgeY,1000,20);\n'+
-'    curveLeftDown(edgeX,edgeY,1000,20);\n'+
-'    curveDownRight(edgeX,edgeY,2000,40);\n'+
-'    curveRightDown(edgeX+2000,edgeY-100,1000,20);\n'+
-'    curveDownLeft(edgeX,edgeY,1000,20);\n'+
-'    curveLeftUp(edgeX,edgeY,1000,20);\n'+
-'    curveUpRight(edgeX,edgeY,800,20);\n'+
-'//Using the canvas buffer\n'+
+'    addLine(6500,1632,4967,2423);\n'+
+'    addLine(edgeX-400,edgeY-100,6477,3808);\n'+
+'    addLine(edgeX,edgeY,edgeX+3000,edgeY);\n'+
+'    writeText("dumpBufferCanvas",6512,3823);\n'+
 '    clearBufferCanvas();\n'+
-'    bufferCanvasContext.fillStyle    = "#000000";\n'+
-'    bufferCanvasContext.font         = "50px Arial";\n'+
-'    bufferCanvasContext.textBaseline = "top";\n'+
-'    bufferCanvasContext.rotate(20*Math.PI/180);\n'+
-'    bufferCanvasContext.fillText("available on github", 0, 0);\n'+
 '    bufferCanvasContext.beginPath();\n'+
 '    bufferCanvasContext.arc(75,75,50,0,Math.PI*2,true); // Outer circle\n'+
 '    bufferCanvasContext.moveTo(110,75);\n'+
@@ -200,8 +179,19 @@ var oldCode =
 '    bufferCanvasContext.moveTo(95,65);\n'+
 '    bufferCanvasContext.arc(90,65,5,0,Math.PI*2,true);  // Right eye\n'+
 '    bufferCanvasContext.stroke();\n'+
-'    dumpBufferCanvas(80,100);'
-;
+'    dumpBufferCanvas(7082,3838);\n'+
+'    writeText("Source code on github",7386,3823);\n'+
+'    clearBufferCanvas();\n'+
+'    bufferCanvasContext.strokeStyle = "#000000";\n'+
+'    bufferCanvasContext.font         = "80px Arial";\n'+
+'    bufferCanvasContext.strokeText("Thumbs up!", 0, 0);\n'+
+'    dumpBufferCanvas(10805,3581);\n'+
+'    curveRightUp(edgeX,edgeY,500,20);\n'+
+'    curveDownRight(edgeX,edgeY,500,20);\n'+
+'    addLine(edgeX,edgeY,edgeX+3000,edgeY);\n'+
+'    writeText("Click",9325,6309);\n'+
+'    writeText("Here",9325,6359);\n'+
+'';
 
 
 var bufferCanvasContext = bufferCanvas.getContext('2d');
