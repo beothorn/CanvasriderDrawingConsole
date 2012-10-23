@@ -66,12 +66,20 @@ function addLine(x1,y1,x2,y2){
     edgeY=y2;
 }
 
+function addLineE(x2,y2){
+    addLine(edgeX,edgeY,x2,y2);
+}
+
 function curveDownRight(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
         addLine(x+size-i,y+size,x,y+size-i);
     }
     edgeX=x+size;
     edgeY=y+size;
+}
+
+function curveDownRightE(size,increment){
+    curveDownRight(edgeX,edgeY,size,increment);
 }
 
 function curveDownLeft(x,y,size,increment){
@@ -82,12 +90,20 @@ function curveDownLeft(x,y,size,increment){
     edgeY=y+size;
 }
 
+function curveDownLeftE(size,increment){
+    curveDownLeft(edgeX,edgeY,size,increment);
+}
+
 function curveUpRight(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
         addLine(x,y-i,x+i,y-size);
     }
     edgeX=x+size;
     edgeY=y-size;
+}
+
+function curveUpRightE(size,increment){
+    curveUpRight(edgeX,edgeY,size,increment)
 }
 
 function curveUpLeft(x,y,size,increment){
@@ -98,12 +114,20 @@ function curveUpLeft(x,y,size,increment){
     edgeY=y-size;
 }
 
+function curveUpLeftE(size,increment){
+    curveUpLeft(edgeX,edgeY,size,increment)
+}
+
 function curveRightUp(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
         addLine(x+i,y,x+size,y-i);
     }
     edgeX=x+size;
     edgeY=y-size;
+}
+
+function curveRightUpE(size,increment){
+    curveRightUp(edgeX,edgeY,size,increment)
 }
 
 function curveRightDown(x,y,size,increment){
@@ -114,6 +138,10 @@ function curveRightDown(x,y,size,increment){
     edgeY=y+size;
 }
 
+function curveRightDownE(size,increment){
+    curveRightDown(edgeX,edgeY,size,increment)
+}
+
 function curveLeftUp(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
         addLine(x+i-size,y,x-size,y-size+i);
@@ -122,12 +150,48 @@ function curveLeftUp(x,y,size,increment){
     edgeY=y-size;
 }
 
+function curveLeftUpE(size,increment){
+    curveLeftUp(edgeX,edgeY,size,increment)
+}
+
 function curveLeftDown(x,y,size,increment){
     for(var i = 0; i <= size;i+=increment){
         addLine(x-i,y,x-size,y+i);
     }
     edgeX=x-size;
     edgeY=y+size;
+}
+
+function curveLeftDownE(size,increment){
+    curveLeftDown(edgeX,edgeY,size,increment)
+}
+
+function addBelzier(x1,y1,cX1,cY1,x2,y2,cX2,cY2){
+    var P1 = coord(x1,y1);
+    var C1 = coord(cX1,cY1);
+    var P2 = coord(x2,y2);
+    var C2 = coord(cX2,cY2);
+
+    var dx = x1 - x2;         //horizontal difference 
+    var dy = y1 - y2;         //vertical difference 
+    var distance = Math.sqrt( dx*dx + dy*dy );
+
+    var x = x1;
+    var y = y1;
+    for(var i = 0;i <= distance;i=i+10){
+        console.log(i/distance);
+        var newPoint = getBezier(i/distance,P2,C2,C1,P1);
+        addLine(x,y,newPoint.x,newPoint.y);
+        x = newPoint.x;
+        y = newPoint.y;
+    }
+    addLine(x,y,x2,y2);
+    edgeX=x2;
+    edgeY=y2;
+}
+
+function addBelzierE(cX1,cY1,x2,y2,cX2,cY2){
+    addBelzier(edgeX,edgeY,cX1,cY1,x2,y2,cX2,cY2);
 }
 
 var div = document.getElementById("track_menu");
@@ -178,24 +242,24 @@ document.getElementById('console').value =
 '    var frequency = 10;\n'+
 '    var amplitude = 80;\n'+
 '    for(var i=0; i<250;i++){\n'+
-'        addLine(edgeX,edgeY,edgeX+10,sineWaveCenter+(Math.sin(i/frequency)*amplitude));\n'+
+'        addLineE(edgeX+10,sineWaveCenter+(Math.sin(i/frequency)*amplitude));\n'+
 '    }\n'+
 '    writeText("curveRightUp",3000,50);\n'+
-'    curveRightUp(edgeX,edgeY,500,20);\n'+
+'    curveRightUpE(500,20);\n'+
 '    writeText("curveDownRight",3950,460);\n'+
-'    curveDownRight(edgeX,edgeY,2000,40);\n'+
-'    addLine(edgeX,edgeY,edgeX+1000,edgeY);\n'+
+'    curveDownRightE(2000,40);\n'+
+'    addLineE(edgeX+1000,edgeY);\n'+
 '    writeText("curveRightDown",7542,1361);\n'+
 '    curveRightDown(edgeX+1000,edgeY-100,1000,20);\n'+
 '    writeText("curveDownLeft",7807,3441);\n'+
-'    curveDownLeft(edgeX,edgeY,1000,20);\n'+
+'    curveDownLeftE(1000,20);\n'+
 '    writeText("curveLeftUp",6502,3441);\n'+
-'    curveLeftUp(edgeX,edgeY,1000,20);\n'+
+'    curveLeftUpE(1000,20);\n'+
 '    writeText("curveUpRight",6822,1926);\n'+
-'    curveUpRight(edgeX,edgeY,800,20);\n'+
+'    curveUpRightE(800,20);\n'+
 '    addLine(6500,1632,4967,2423);\n'+
 '    addLine(edgeX-400,edgeY-100,6477,3808);\n'+
-'    addLine(edgeX,edgeY,edgeX+3000,edgeY);\n'+
+'    addLineE(edgeX+3000,edgeY);\n'+
 '    writeText("dumpBufferCanvas",6512,3823);\n'+
 '    clearBufferCanvas();\n'+
 '    getContext().beginPath();\n'+
@@ -214,36 +278,15 @@ document.getElementById('console').value =
 '    getContext().font         = "80px Arial";\n'+
 '    getContext().strokeText("Thumbs up!", 0, 0);\n'+
 '    dumpBufferCanvas(10805,3581);\n'+
-'    curveRightUp(edgeX,edgeY,500,20);\n'+
-'    curveDownRight(edgeX,edgeY,500,20);\n'+
+'    curveRightUpE(500,20);\n'+
+'    curveDownRightE(500,20);\n'+
 '    addLine(edgeX,edgeY,edgeX+3000,edgeY);\n'+
 '    writeText("Click",9325,6309);\n'+
 '    writeText("Here",9325,6359);\n'+
-'    addBelzier(edgeX,edgeY,edgeX+500,edgeY+500,edgeX+1000,edgeY,edgeX+1000-500,edgeY+500);\n'+
+'    addBelzierE(edgeX+500,edgeY+500,edgeX+1000,edgeY,edgeX+1000-500,edgeY+500);\n'+
 '';
 
-function addBelzier(x1,y1,cX1,cY1,x2,y2,cX2,cY2){
-    var P1 = coord(x1,y1);
-    var C1 = coord(cX1,cY1);
-    var P2 = coord(x2,y2);
-    var C2 = coord(cX2,cY2);
 
-    var dx = x1 - x2;         //horizontal difference 
-    var dy = y1 - y2;         //vertical difference 
-    var distance = Math.sqrt( dx*dx + dy*dy );
-
-    var x = x1;
-    var y = y1;
-    for(var i = 0;i <= distance;i=i+10){
-        console.log(i/distance);
-        var newPoint = getBezier(i/distance,P2,C2,C1,P1);
-        addLine(x,y,newPoint.x,newPoint.y);
-        x = newPoint.x;
-        y = newPoint.y;
-    }
-    edgeX=x2;
-    edgeY=y2;
-}
 
 function getContext(){
     return document.getElementById('bufferCanvas').getContext('2d');
