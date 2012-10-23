@@ -10,6 +10,34 @@
 var edgeX=40;
 var edgeY=50;
 
+//====================================\\
+// 13thParallel.org Beziér Curve Code \\
+//   by Dan Pupius (www.pupius.net)   \\
+//====================================\\
+
+coord = function (x,y) {
+  if(!x) var x=0;
+  if(!y) var y=0;
+  return {x: x, y: y};
+}
+
+function B1(t) { return t*t*t }
+function B2(t) { return 3*t*t*(1-t) }
+function B3(t) { return 3*t*(1-t)*(1-t) }
+function B4(t) { return (1-t)*(1-t)*(1-t) }
+
+function getBezier(percent,C1,C2,C3,C4) {
+  var pos = new coord();
+  pos.x = C1.x*B1(percent) + C2.x*B2(percent) + C3.x*B3(percent) + C4.x*B4(percent);
+  pos.y = C1.y*B1(percent) + C2.y*B2(percent) + C3.y*B3(percent) + C4.y*B4(percent);
+  return pos;
+}
+//END
+//====================================\\
+// 13thParallel.org Beziér Curve Code \\
+//   by Dan Pupius (www.pupius.net)   \\
+//====================================\\
+
 function resetEdge(){
     edgeX=40;
     edgeY=50;
@@ -191,7 +219,31 @@ document.getElementById('console').value =
 '    addLine(edgeX,edgeY,edgeX+3000,edgeY);\n'+
 '    writeText("Click",9325,6309);\n'+
 '    writeText("Here",9325,6359);\n'+
+'    addBelzier(edgeX,edgeY,edgeX+500,edgeY+500,edgeX+1000,edgeY,edgeX+1000-500,edgeY+500);\n'+
 '';
+
+function addBelzier(x1,y1,cX1,cY1,x2,y2,cX2,cY2){
+    var P1 = coord(x1,y1);
+    var C1 = coord(cX1,cY1);
+    var P2 = coord(x2,y2);
+    var C2 = coord(cX2,cY2);
+
+    var dx = x1 - x2;         //horizontal difference 
+    var dy = y1 - y2;         //vertical difference 
+    var distance = Math.sqrt( dx*dx + dy*dy );
+
+    var x = x1;
+    var y = y1;
+    for(var i = 0;i <= distance;i=i+10){
+        console.log(i/distance);
+        var newPoint = getBezier(i/distance,P2,C2,C1,P1);
+        addLine(x,y,newPoint.x,newPoint.y);
+        x = newPoint.x;
+        y = newPoint.y;
+    }
+    edgeX=x2;
+    edgeY=y2;
+}
 
 function getContext(){
     return document.getElementById('bufferCanvas').getContext('2d');
@@ -312,8 +364,6 @@ function writeText(text, x, y){
     dumpBufferCanvasHorizontalLines(x,y);
 }
 
-//----------------------------------------------
-
 var buttonnode= document.createElement('input');
 buttonnode.setAttribute('type','file');
 buttonnode.setAttribute('id','input');
@@ -337,4 +387,5 @@ function handleFiles(e) {
     }
     reader.readAsDataURL(e.target.files[0]);
 }
+
 
