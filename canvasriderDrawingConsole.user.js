@@ -43,6 +43,16 @@ function resetEdge(){
     edgeY=50;
 }
 
+var lineType = "solid";
+
+function setLineSolid(){
+	lineType = "solid";
+}
+
+function setLineScenery(){
+	lineType = "scenery";
+}
+
 function extractedAddLine(x1,y1,x2,y2){
     var P = new line(x1,y1,x2,y2);
     var I = CG(new J(P.AH.x, P.AH.y), new J(P.AK.x, P.AK.y), C.q);
@@ -55,7 +65,12 @@ function extractedAddLine(x1,y1,x2,y2){
         if (C.I[x][y] == undefined) {
             C.I[x][y] = new BP;
         }
-       C.I[x][y].AG.push(P);
+	
+	if(lineType == "solid")
+		C.I[x][y].AG.push(P);
+	else
+		C.I[x][y].AL.push(P);
+
        delete C.Ax[x + "_" + y];
     }
 }
@@ -179,7 +194,6 @@ function addBelzier(x1,y1,cX1,cY1,x2,y2,cX2,cY2){
     var x = x1;
     var y = y1;
     for(var i = 0;i <= distance;i=i+10){
-        console.log(i/distance);
         var newPoint = getBezier(i/distance,P2,C2,C1,P1);
         addLine(x,y,newPoint.x,newPoint.y);
         x = newPoint.x;
@@ -237,7 +251,9 @@ document.getElementById('console').value =
 '    writeText("CanvasriderDrawingConsole",53,-131);\n'+
 '    writeText("Example Track",edgeX,edgeY);\n'+
 '    addLine(381,edgeY,500,edgeY);\n'+
-'    writeText("sine wave",871,30);\n'+
+'    setLineScenery();\n'+
+'    writeText("sine wave",550,0);\n'+
+'    setLineSolid();\n'+
 '    var sineWaveCenter = edgeY;\n'+
 '    var frequency = 10;\n'+
 '    var amplitude = 80;\n'+
@@ -395,8 +411,6 @@ function dumpBufferCanvasHorizontalLines(crX,crY){
 }
 
 function dumpBufferCanvas(crX,crY){
-console.log('dumpBufferCanvas');
-console.log(crX);
     dumpBufferCanvasHorizontalLines(crX,crY);
     dumpBufferCanvasVerticalLines(crX,crY);
 }

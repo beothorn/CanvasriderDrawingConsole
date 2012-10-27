@@ -4,7 +4,9 @@
     writeText("CanvasriderDrawingConsole",53,-131);
     writeText("Example Track",edgeX,edgeY);
     addLine(381,edgeY,500,edgeY);
-    writeText("sine wave",871,30);
+    setLineScenery();
+    writeText("sine wave",550,0);
+    setLineSolid();
     var sineWaveCenter = edgeY;
     var frequency = 10;
     var amplitude = 80;
