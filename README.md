@@ -3,6 +3,18 @@ CanvasriderDrawingConsole
 
 A Greasemonkey script to use on the game canvasrider that adds a console and some useful functions to it .  
 Also adds a text field with the coordinates of the last added point.  
+
+Instalation
+===========
+You will need firefox with greasemonkey (https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/)  
+After that just use this link:  
+https://github.com/beothorn/CanvasriderDrawingConsole/raw/master/canvasriderDrawingConsole.user.js
+
+If you use the CanvasriderDrawingConsole please post your track on issue #1  
+htps://github.com/beothorn/CanvasriderDrawingConsole/issues/1  
+
+Usage
+===========
   
 Functions that can be called from the console (besides normal javascript):  
   writeText(text,x,y);  
@@ -15,7 +27,7 @@ Functions that can be called from the console (besides normal javascript):
   addBelzierE(cX1,cY1,x2,y2,cX2,cY2);  
 
 To switch between scenery lines and solid lines use  
-setLineScenery(); 
+setLineScenery();  
 and   
 setLineSolid();  
 
@@ -45,11 +57,4 @@ Every time you call addline the variables edgeX and edgeY change to x2 and y2.
 You can find a detailed exemple of what can be done on exampleTrack.js  
 
 
-Instalation
-===========
-You will need firefox with greasemonkey (https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/)  
-After that just use this link:  
-https://github.com/beothorn/CanvasriderDrawingConsole/raw/master/canvasriderDrawingConsole.user.js
 
-If you use the CanvasriderDrawingConsole please post your track on issue #1  
-htps://github.com/beothorn/CanvasriderDrawingConsole/issues/1  
