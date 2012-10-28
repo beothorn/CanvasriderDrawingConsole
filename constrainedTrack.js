@@ -18,22 +18,18 @@ function sineWave(frequency,amplitude){
   }
 }
 
-sineWave(10,80);
-
 function bezierCurve(xStart,yStart,xEnd,yEnd,height){
   addBelzier(xStart,yStart,xStart+height,yStart,xEnd,yEnd,xEnd+height,yEnd);
 }
 
 function bezierConstrainedCurveUp(height){
-  var beforeX = edgeX;
-  var beforeY = edgeY;
   if(height>0){
-    edgeY -= height+wheelSize;
+    edgeY -= height+2*wheelSize;
   }else{
-    edgeY += height+wheelSize;
+    edgeY += height+2*wheelSize;
   }
+  var beforeY = edgeY + 3*wheelSize;
   bezierConstrainedCurveDown(height);
-  edgeX = beforeX;
   edgeY = beforeY;
 }
 
@@ -58,12 +54,18 @@ function bezierConstrainedCurveDown(height){
   }
 }
 
+sineWave(50,200);
+sineWave(50,200);
+sineWave(50,200);
+
 bezierConstrainedCurveDown(600);
 bezierConstrainedCurveDown(-600);
 bezierConstrainedCurveDown(800);
 bezierConstrainedCurveDown(-1000);
 
 sineWave(50,200);
+sineWave(10,80);
+
 bezierConstrainedCurveDown(500);
 bezierConstrainedCurveDown(-200);
 bezierConstrainedCurveDown(200);
@@ -73,4 +75,7 @@ addLineE(-40,edgeY);
 edgeY = oldEdgeY-wheelSize;
 edgeX = oldEdgeX;
 addLineE(-40,edgeY);
-bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(-1000);
+bezierConstrainedCurveUp(500);
+//-40,50
+bezierConstrainedCurveUp((50-edgeY)-2*wheelSize);
