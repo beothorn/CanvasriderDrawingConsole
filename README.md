@@ -14,6 +14,11 @@ Functions that can be called from the console (besides normal javascript):
   addBelzier(x1,y1,cX1,cY1,x2,y2,cX2,cY2);//Where cX1 is the control coordinate for (x1,y1), see http://en.wikipedia.org/wiki/B%C3%A9zier_curve  
   addBelzierE(cX1,cY1,x2,y2,cX2,cY2);  
 
+To switch between scenery lines and solid lines use  
+setLineScenery(); 
+and   
+setLineSolid();  
+
 The script also adds another canvas, the bufferCanvas. The function  
   dumpBufferCanvas(x,y);
 dumps the contents of the bufferCanvas to the x,y coordinate on the track. To clear the buffer call:  
