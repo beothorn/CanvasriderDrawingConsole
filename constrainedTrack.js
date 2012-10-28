@@ -23,12 +23,14 @@ function bezierCurve(xStart,yStart,xEnd,yEnd,height){
 }
 
 function bezierConstrainedCurveUp(height){
+  var beforeY;
   if(height>0){
     edgeY -= height+2*wheelSize;
+    beforeY = edgeY - wheelSize;
   }else{
     edgeY += height+2*wheelSize;
+    beforeY = edgeY + 3*wheelSize;
   }
-  var beforeY = edgeY + 3*wheelSize;
   bezierConstrainedCurveDown(height);
   edgeY = beforeY;
 }
@@ -69,13 +71,24 @@ sineWave(10,80);
 bezierConstrainedCurveDown(500);
 bezierConstrainedCurveDown(-200);
 bezierConstrainedCurveDown(200);
+bezierConstrainedCurveDown(-500);
+bezierConstrainedCurveDown(500);
+bezierConstrainedCurveDown(-500);
+bezierConstrainedCurveDown(500);
 var oldEdgeY = edgeY;
 var oldEdgeX = edgeX;
 addLineE(-40,edgeY);
 edgeY = oldEdgeY-wheelSize;
 edgeX = oldEdgeX;
 addLineE(-40,edgeY);
-bezierConstrainedCurveUp(-1000);
+bezierConstrainedCurveUp(-500);
+bezierConstrainedCurveUp(500);
+bezierConstrainedCurveUp(-500);
+bezierConstrainedCurveUp(500);
+bezierConstrainedCurveUp(-500);
+bezierConstrainedCurveUp(500);
+bezierConstrainedCurveUp(-500);
 bezierConstrainedCurveUp(500);
 //-40,50
-bezierConstrainedCurveUp((50-edgeY)-2*wheelSize);
+var endingPointHeight = (50-edgeY)-2*wheelSize;
+bezierConstrainedCurveUp(endingPointHeight);
