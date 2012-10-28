@@ -2,18 +2,18 @@ var wheelSize = 30;
 addLine(-40,edgeY-wheelSize,edgeX,edgeY-wheelSize);
 resetEdge();
 
-function sineWave(frequency,amplitude){
+function sineWave(frequency,amplitude,size){
   var startingX = edgeX;
   var startingY = edgeY;
   edgeY = startingY - wheelSize;
   var sineWaveCenter = edgeY;
-  for(var i=0; i<250;i++){
+  for(var i=0; i<size;i++){
     addLineE(edgeX+10,sineWaveCenter+(Math.sin(i/frequency)*amplitude));
   }
   edgeX = startingX;
   edgeY = startingY;
   sineWaveCenter = edgeY;
-  for(var i=0; i<250;i++){
+  for(var i=0; i<size;i++){
     addLineE(edgeX+10,sineWaveCenter+(Math.sin(i/frequency)*amplitude));
   }
 }
@@ -56,31 +56,80 @@ function bezierConstrainedCurveDown(height){
   }
 }
 
-sineWave(50,200);
-sineWave(50,200);
-sineWave(50,200);
+function addConstrainedLine(x,y){
+  var oldEdgeY = edgeY;
+  var oldEdgeX = edgeX;
+  addLineE(x,y);
+  edgeY = oldEdgeY-wheelSize;
+  edgeX = oldEdgeX;
+  addLineE(x,y-wheelSize);
+}
+
+
+addConstrainedLine(edgeX+1000,edgeY);
+edgeY+=wheelSize;
+
+sineWave(50,200,500);
+sineWave(25,200,500);
 
 bezierConstrainedCurveDown(600);
-bezierConstrainedCurveDown(-600);
+bezierConstrainedCurveDown(-700);
 bezierConstrainedCurveDown(800);
 bezierConstrainedCurveDown(-1000);
 
-sineWave(50,200);
-sineWave(10,80);
+sineWave(50,200,250);
+sineWave(10,80,250);
 
-bezierConstrainedCurveDown(500);
-bezierConstrainedCurveDown(-200);
+bezierConstrainedCurveDown(1000);
+bezierConstrainedCurveDown(-900);
+bezierConstrainedCurveDown(800);
+bezierConstrainedCurveDown(-700);
+bezierConstrainedCurveDown(600);
+bezierConstrainedCurveDown(-500);
+bezierConstrainedCurveDown(400);
+bezierConstrainedCurveDown(-300);
 bezierConstrainedCurveDown(200);
-bezierConstrainedCurveDown(-500);
-bezierConstrainedCurveDown(500);
-bezierConstrainedCurveDown(-500);
-bezierConstrainedCurveDown(500);
-var oldEdgeY = edgeY;
-var oldEdgeX = edgeX;
-addLineE(-40,edgeY);
-edgeY = oldEdgeY-wheelSize;
-edgeX = oldEdgeX;
-addLineE(-40,edgeY);
+bezierConstrainedCurveDown(-400);
+bezierConstrainedCurveDown(600);
+bezierConstrainedCurveDown(-800);
+
+addConstrainedLine(edgeX+1000,edgeY);
+edgeY+=wheelSize;
+
+bezierConstrainedCurveDown(2000);
+
+addConstrainedLine(-40,edgeY);
+
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-200);
+bezierConstrainedCurveUp(200);
+bezierConstrainedCurveUp(-500);
+bezierConstrainedCurveUp(500);
+bezierConstrainedCurveUp(-500);
+bezierConstrainedCurveUp(500);
+bezierConstrainedCurveUp(-500);
+bezierConstrainedCurveUp(500);
 bezierConstrainedCurveUp(-500);
 bezierConstrainedCurveUp(500);
 bezierConstrainedCurveUp(-500);
@@ -92,3 +141,12 @@ bezierConstrainedCurveUp(500);
 //-40,50
 var endingPointHeight = (50-edgeY)-2*wheelSize;
 bezierConstrainedCurveUp(endingPointHeight);
+
+setLineScenery();
+writeText("Slow down",5130,102);
+writeText("Slowly",12910,2922);
+writeText("Run!",15010,11612);
+writeText("Run!",14010,11612);
+writeText("Run!",14010,11612);
+writeText("Almost there!",-45,11612);
+
