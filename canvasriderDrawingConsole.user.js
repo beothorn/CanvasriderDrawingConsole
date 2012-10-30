@@ -208,6 +208,27 @@ function addBelzierE(cX1,cY1,x2,y2,cX2,cY2){
     addBelzier(edgeX,edgeY,cX1,cY1,x2,y2,cX2,cY2);
 }
 
+function plot(func,x,y,size,xIncrement){
+  var currentX = x;
+  var lastX = x;
+  var lastY = y;
+  while(currentX<x+size){
+    var funcValue = func(x-currentX);
+    console.log(funcValue);
+    if(funcValue == null)
+      funcValue = 0;
+    var plotY = y+funcValue;
+    addLine(lastX,lastY,currentX,plotY);
+    lastX = currentX;
+    lastY = plotY;
+    currentX+=xIncrement;
+  }
+}
+
+function plotE(func,size,xIncrement){
+  plot(func,edgeX,edgeY,size,xIncrement);
+}
+
 var div = document.getElementById("track_menu");
 var divFirstElement = document.getElementById("charcount");
 
@@ -248,18 +269,18 @@ document.getElementById('console').value =
 '//Paste javascript here\n'+
 '//Example usage:\n'+
 '    resetEdge();\n'+
-'    writeText("CanvasriderDrawingConsole",53,-131);\n'+
 '    writeText("Example Track",edgeX,edgeY);\n'+
 '    addLine(381,edgeY,500,edgeY);\n'+
 '    setLineScenery();\n'+
+'    writeText("CanvasriderDrawingConsole",53,-131);\n'+
 '    writeText("sine wave",550,0);\n'+
 '    setLineSolid();\n'+
 '    var sineWaveCenter = edgeY;\n'+
-'    var frequency = 10;\n'+
+'    var frequency = 100;\n'+
 '    var amplitude = 80;\n'+
-'    for(var i=0; i<250;i++){\n'+
-'        addLineE(edgeX+10,sineWaveCenter+(Math.sin(i/frequency)*amplitude));\n'+
-'    }\n'+
+'    var size = 2500;\n'+
+'    var increment = 10;\n'+
+'    plotE(function(x){return Math.sin(x/frequency)*amplitude;},size,increment);\n'+
 '    writeText("curveRightUp",3000,50);\n'+
 '    curveRightUpE(500,20);\n'+
 '    writeText("curveDownRight",3950,460);\n'+
@@ -273,8 +294,7 @@ document.getElementById('console').value =
 '    curveLeftUpE(1000,20);\n'+
 '    writeText("curveUpRight",6822,1926);\n'+
 '    curveUpRightE(800,20);\n'+
-'    addLine(6500,1632,4967,2423);\n'+
-'    addLine(edgeX-400,edgeY-100,6477,3808);\n'+
+'    addLine(edgeX-4500,edgeY-100,6477,3808);\n'+
 '    addLineE(edgeX+3000,edgeY);\n'+
 '    writeText("dumpBufferCanvas",6512,3823);\n'+
 '    clearBufferCanvas();\n'+

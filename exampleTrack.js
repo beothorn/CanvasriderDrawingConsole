@@ -1,18 +1,18 @@
 //Paste javascript here
 //Example usage:
     resetEdge();
-    writeText("CanvasriderDrawingConsole",53,-131);
     writeText("Example Track",edgeX,edgeY);
     addLine(381,edgeY,500,edgeY);
     setLineScenery();
+    writeText("CanvasriderDrawingConsole",53,-131);
     writeText("sine wave",550,0);
     setLineSolid();
     var sineWaveCenter = edgeY;
-    var frequency = 10;
+    var frequency = 100;
     var amplitude = 80;
-    for(var i=0; i<250;i++){
-        addLine(edgeX+10,sineWaveCenter+(Math.sin(i/frequency)*amplitude));
-    }
+    var size = 2500;
+    var increment = 10;
+    plotE(function(x){return Math.sin(x/frequency)*amplitude;},size,increment);
     writeText("curveRightUp",3000,50);
     curveRightUpE(500,20);
     writeText("curveDownRight",3950,460);
@@ -26,8 +26,7 @@
     curveLeftUpE(1000,20);
     writeText("curveUpRight",6822,1926);
     curveUpRightE(800,20);
-    addLine(6500,1632,4967,2423);
-    addLine(edgeX-400,edgeY-100,6477,3808);
+    addLine(edgeX-4500,edgeY-100,6477,3808);
     addLineE(edgeX+3000,edgeY);
     writeText("dumpBufferCanvas",6512,3823);
     clearBufferCanvas();
@@ -53,3 +52,4 @@
     writeText("Click",9325,6309);
     writeText("Here",9325,6359);
     addBelzierE(edgeX+500,edgeY+500,edgeX+1000,edgeY,edgeX+1000-500,edgeY+500);
+
