@@ -251,7 +251,13 @@ var buttonnode= document.createElement('input');
 buttonnode.setAttribute('type','button');
 buttonnode.setAttribute('name','RUN');
 buttonnode.setAttribute('value','RUN');
-buttonnode.onclick= function() { eval(document.getElementById('console').value); };
+buttonnode.onclick= function() {
+	try {
+        eval(document.getElementById('console').value); 
+	} catch (e) {
+        alert(e.message);
+	}
+};
 div.insertBefore(buttonnode,divFirstElement);
 
 var bufferCanvas = document.createElement("canvas");
