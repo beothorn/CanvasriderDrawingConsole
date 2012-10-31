@@ -446,6 +446,12 @@ function writeText(text, x, y){
     dumpBufferCanvasHorizontalLines(x,y);
 }
 
+function writeTextE(text){
+    clearBufferCanvas();
+    writeTextOnBufferCanvas(text);
+    dumpBufferCanvasHorizontalLines(edgeX,edgeY);
+}
+
 var buttonnode= document.createElement('input');
 buttonnode.setAttribute('type','file');
 buttonnode.setAttribute('id','input');
