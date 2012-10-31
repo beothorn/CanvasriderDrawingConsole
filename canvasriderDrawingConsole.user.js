@@ -209,17 +209,19 @@ function addBelzierE(cX1,cY1,x2,y2,cX2,cY2){
 }
 
 function plot(func,x,y,size,xIncrement){
-  var currentX = x;
+  var currentX = 0;
   var lastX = x;
   var lastY = y;
-  while(currentX<x+size){
-    var funcValue = func(x-currentX);
-    console.log(funcValue);
+  while(currentX+x<x+size){
+    var funcValue = func(currentX);
+    console.log("funcValue "+funcValue);
     if(funcValue == null)
       funcValue = 0;
-    var plotY = y+funcValue;
-    addLine(lastX,lastY,currentX,plotY);
-    lastX = currentX;
+    var plotY = y-funcValue;
+    var plotX = x+currentX;
+    addLine(lastX,lastY,plotX,plotY);
+    console.log("funcValue "+funcValue+" y "+y+" lastX "+ lastX+" lastY "+lastY+" plotX "+plotX+" plotY "+plotY);
+    lastX = plotX;
     lastY = plotY;
     currentX+=xIncrement;
   }

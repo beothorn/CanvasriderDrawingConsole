@@ -27,7 +27,9 @@ Functions that can be called from the console (besides normal javascript):
   addBelzierE(cX1,cY1,x2,y2,cX2,cY2);  
 
 You can plot any function with plot. For example:  
-plotE(function(x){return x+1;},size,increment);
+plotE(function(x){return x+1;},size,increment);  
+or  
+plotE(function(x){return x*(x*0.001);},500,10);  
 or  
 plotE(function(x){return Math.sin(x/frequency)*amplitude;},size,increment);  
 
