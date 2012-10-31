@@ -33,6 +33,9 @@ plotE(function(x){return x*(x*0.001);},500,10);
 or  
 plotE(function(x){return Math.sin(x/frequency)*amplitude;},size,increment);  
 
+To get the current selected coordinates to be the edge coordinates  
+coordToEdge();  
+
 To switch between scenery lines and solid lines use  
 setLineScenery();  
 and   

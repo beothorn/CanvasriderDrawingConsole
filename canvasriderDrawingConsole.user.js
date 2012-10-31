@@ -231,6 +231,11 @@ function plotE(func,size,xIncrement){
   plot(func,edgeX,edgeY,size,xIncrement);
 }
 
+function coordToEdge(){
+	edgeX = AF.x;
+	edgeY = AF.y;
+}
+
 var div = document.getElementById("track_menu");
 var divFirstElement = document.getElementById("charcount");
 
