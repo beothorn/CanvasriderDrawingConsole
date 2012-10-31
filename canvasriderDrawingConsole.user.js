@@ -214,13 +214,11 @@ function plot(func,x,y,size,xIncrement){
   var lastY = y;
   while(currentX+x<x+size){
     var funcValue = func(currentX);
-    console.log("funcValue "+funcValue);
     if(funcValue == null)
       funcValue = 0;
     var plotY = y-funcValue;
     var plotX = x+currentX;
     addLine(lastX,lastY,plotX,plotY);
-    console.log("funcValue "+funcValue+" y "+y+" lastX "+ lastX+" lastY "+lastY+" plotX "+plotX+" plotY "+plotY);
     lastX = plotX;
     lastY = plotY;
     currentX+=xIncrement;
