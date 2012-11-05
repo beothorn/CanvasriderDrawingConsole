@@ -1,8 +1,9 @@
 CanvasriderDrawingConsole
 =========================
 
-A Greasemonkey script to use on the game canvasrider that adds a console and some useful functions to it .  
-Also adds a text field with the coordinates of the last added point.  
+CanvasriderDrawingConsole is a tool written as a greasemonkey script for editing tracks on the game canvas rider (http://canvasrider.com/).  
+The script adds a console and some useful functions to the "Draw & upload a track" page.  
+Also adds a text field with the coordinates of the last added point and a canvas that can be dumped on the track.  
 
 Instalation
 ===========
@@ -42,7 +43,7 @@ and
 setLineSolid();  
 
 The script also adds another canvas, the bufferCanvas. The function  
-  dumpBufferCanvas(x,y);
+  dumpBufferCanvas(x,y);  
 dumps the contents of the bufferCanvas to the x,y coordinate on the track. To clear the buffer call:  
   clearBufferCanvas();  
 
@@ -64,7 +65,7 @@ will draw a smile on (0,0)
 
 Every time you call addline the variables edgeX and edgeY change to x2 and y2.  
 
-You can find a detailed exemple of what can be done on exampleTrack.js  
+You can find detailed examples of what can be done on the .js files , just copy/paste them on yhe console and press run.
 
 
 
