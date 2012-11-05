@@ -3,7 +3,9 @@ CanvasriderDrawingConsole
 
 CanvasriderDrawingConsole is a tool written as a greasemonkey script for editing tracks on the game canvas rider (http://canvasrider.com/).  
 The script adds a console and some useful functions to the "Draw & upload a track" page.  
-Also adds a text field with the coordinates of the last added point and a canvas that can be dumped on the track.  
+Also adds a text field with the coordinates of the last added point and a canvas that can be dumped on the track. 
+
+![Alt text](https://raw.github.com/beothorn/CanvasriderDrawingConsole/master/Screenshot.png "Canvas rider Drawing Console tool")
 
 Instalation
 ===========
